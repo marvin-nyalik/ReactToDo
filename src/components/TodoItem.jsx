@@ -1,4 +1,7 @@
-const TodoItem = ({ itemProp, setTodos }) => {  
+import { useState } from 'react';
+
+const TodoItem = ({ itemProp, setTodos, delTodo }) => {  
+  const [editing, setEditing] = useState(false);
   const handleChange = (id) => {
     setTodos((prevState) =>
     prevState.map((todo) => {
@@ -12,11 +15,21 @@ const TodoItem = ({ itemProp, setTodos }) => {
     })
   );  };
 
-    return <li><input type="checkbox"
+  const handleEditing = () => {
+    setEditing(true);
+  };
+
+    return (<li>
+      <div>
+      <input type="checkbox"
     checked = {itemProp.completed} 
     onChange={() => handleChange(itemProp.id)}
     />
-     {itemProp.title}</li>;
+     {itemProp.title}
+     <button onClick={handleEditing}>Edit</button>
+     <button onClick={() => delTodo(itemProp.id)}>Delete</button>
+      </div>
+    </li>);
   };
   export default TodoItem;
   
